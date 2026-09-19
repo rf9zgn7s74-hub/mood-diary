@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#7777aa">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>Aiwei❤️ 心情日記</title>
+<style>
+:root{--pink:#e65ab5;--purple:#9b66e8;--blue:#2599e8;--ink:#292633;--muted:#8b8495}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;color:var(--ink)}
+body{background:#a8a0ce}.app{width:min(100%,480px);min-height:100vh;margin:auto;position:relative;overflow-x:hidden;background:linear-gradient(#666fa899,#e8c7e2c9),url("./background.jpeg") center/cover fixed;padding:env(safe-area-inset-top) 18px calc(92px + env(safe-area-inset-bottom))}
+.hidden{display:none!important}.top{text-align:center;color:#fff;padding:12px 8px 16px}.brand{font-size:44px;font-weight:850;letter-spacing:1px;text-shadow:0 2px 12px #554c8b55}.sub{font-size:18px;font-weight:700}.tiny{font-size:13px;opacity:.9;margin-top:5px}
+.glass{background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.85);box-shadow:0 14px 36px #4e42612a;border-radius:30px}.card{padding:22px;margin:12px 0}
+.pearl{width:148px;height:148px;margin:10px auto 20px;border-radius:50%;display:grid;place-items:center;font-size:60px;background:radial-gradient(circle at 48% 35%,#fff 0 47%,#f3eef7 50%,#ddd4ea 72%,#c6b8dc 100%);box-shadow:0 15px 35px #463d7444}
+h1,h2,h3,p{margin-top:0}.title{font-size:25px;font-weight:850}.desc{font-size:14px;color:var(--muted);line-height:1.7}
+.moods{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:16px 0}.mood{border:0;background:#f4eff8;border-radius:17px;padding:10px 2px;font-size:26px;color:#444}.mood span{display:block;font-size:10px;margin-top:5px}.mood.active{outline:2px solid var(--pink);background:#fff0f8}
+.btn{width:100%;border:0;border-radius:22px;padding:16px;background:linear-gradient(90deg,var(--pink),var(--purple));color:#fff;font-size:18px;font-weight:850;box-shadow:0 8px 18px #c85ab33d}
+.sectionTitle{text-align:center;color:#fff;font-size:26px;margin:8px 0 14px;text-shadow:0 2px 10px #5d538b66}.date{font-weight:750;color:#696171;margin-bottom:10px}
+.input{width:100%;border:0;outline:0;resize:vertical;background:#f8f5fb;border-radius:22px;padding:16px;font:inherit;line-height:1.7;min-height:160px;color:#333}.input.smallInput{min-height:92px}
+.label{font-size:20px;font-weight:850;margin:18px 0 10px}.tags{display:flex;flex-wrap:wrap;gap:9px}.tag{border:0;background:#f3eff7;border-radius:18px;padding:10px 14px;font-size:15px;color:#168bd0;font-weight:750}.tag.active{background:#f0d4e9;color:#b03791}.tag.angry.active{background:#fff0f0;color:#e34040;outline:2px solid #ff8d98}
+.toolbar{display:flex;align-items:center;gap:8px;margin:14px 0 8px}.tool{border:0;background:#f1eaf6;border-radius:16px;padding:10px 13px;font-weight:750}.hint{font-size:11px;color:#978d9d}
+.tray{display:none;background:#f9f5fb;border-radius:20px;padding:12px}.tray.show{display:block}.cats{display:flex;gap:6px;overflow:auto;margin-bottom:9px}.stickerGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.sticker{border:0;background:white;border-radius:15px;padding:8px 3px;font-size:27px;box-shadow:0 3px 10px #604c7618}.stickerCanvas{min-height:70px;border:1px dashed #ddcfe7;background:#fbf8fd;border-radius:18px;padding:10px;display:flex;flex-wrap:wrap;gap:8px}.placed{font-size:34px}
+.diaryHead{display:flex;justify-content:space-between;align-items:end;gap:10px}.monthBtn{border:0;border-radius:15px;padding:9px 12px;background:#f2ebf7;color:#8f5599}.entries{display:grid;gap:12px}.entry{padding:18px}.entryTop{display:flex;justify-content:space-between;gap:8px}.entryMood{font-size:21px;font-weight:850}.entryDate{font-size:12px;color:#8f8796}.entryText{white-space:pre-wrap;line-height:1.65;margin:10px 0}.entryTags{font-size:12px;color:#6d6690}.empty{text-align:center;padding:32px 12px;color:#8e8594}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}.day{aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:#f4f0f6;font-size:12px}.day.has{background:#fff0f8;outline:1px solid #efb7da}
+.switch{display:flex;background:#f4eff7;border-radius:18px;padding:4px;margin-bottom:16px}.switch button{flex:1;border:0;background:transparent;border-radius:14px;padding:9px}.switch .active{background:#fff;color:#d84ca8;box-shadow:0 3px 9px #6a52641a}
+.chart{height:180px;display:flex;align-items:flex-end;gap:9px;border-bottom:1px solid #eee;padding:18px 4px 0}.bar{flex:1;min-height:8px;border-radius:14px 14px 5px 5px;background:linear-gradient(#e665b9,#7d79cf);position:relative}.bar i{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-style:normal;font-size:18px}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.stat div{background:#f7f3fa;border-radius:18px;padding:12px;text-align:center}.stat b{display:block;font-size:21px}
+.future{min-height:180px}.quote{text-align:center;color:white;padding:20px 10px;line-height:1.8}
+.nav{position:fixed;z-index:20;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:#fffdfdf4;border-top:1px solid #eee;padding:9px 6px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(16px)}.nav button{border:0;background:none;color:#6f7690;font-size:12px;font-weight:700}.nav b{display:block;font-size:23px;margin-bottom:3px}.nav .on{color:#e24cab}
+.fab{position:fixed;right:max(20px,calc((100vw - 480px)/2 + 20px));bottom:105px;width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-size:32px;box-shadow:0 8px 20px #7c4b8b55}
+@media(max-width:380px){.moods{grid-template-columns:repeat(3,1fr)}.brand{font-size:38px}}
+
+.hopeBox{margin:16px 0 6px;padding:18px 12px 14px;text-align:center;color:#fff}
+.hopeText{font-size:18px;font-weight:800;line-height:1.65;text-shadow:0 2px 10px #564c8066;margin-bottom:10px}
+.hopeGirls{display:flex;justify-content:center;align-items:flex-end;gap:4px}
+.hopeGirl{width:31%;max-width:112px;filter:drop-shadow(0 8px 10px #51466b2a)}
+.hopeNote{font-size:11px;background:#fffdf5;color:#7a6078;padding:7px 5px;border-radius:10px;box-shadow:0 5px 12px #5d4c6c22;margin-top:-8px;position:relative}
+
+
+.oysterHope{padding:0;margin:14px 0 6px;background:transparent}
+.oysterHope img{display:block;width:100%;height:auto;border-radius:28px;box-shadow:0 12px 28px #55466f26}
+</style>
+</head>
+<body>
+<main class="app">
+<section id="today">
+  <div class="top"><div class="brand">Aiwei❤️</div><div class="sub">心情日記</div><div class="tiny">每一種心情，都值得被記錄。</div></div>
+  <div class="pearl" id="pearl">🙂</div>
+  <div class="glass card">
+    <div class="title">今天，過得怎麼樣？</div><div class="desc">選一個最接近現在的心情吧。</div>
+    <div class="moods" id="moods"></div>
+    <button class="btn" onclick="go('write')">開始今天的日記 →</button>
+  </div>
+  <div class="quote">給自己一點時間 ♡</div>
+</section>
+
+<section id="write" class="hidden">
+  <h2 class="sectionTitle">寫下今天的心情</h2>
+  <div class="glass card">
+    <div class="date" id="date"></div>
+    <textarea id="note" class="input" placeholder="今天發生了什麼？想記下的、想說的、想放下的…都可以寫在這裡。"></textarea>
+    <div class="label">這次的主題是？</div><div class="tags" id="tags"></div>
+    <div class="toolbar"><button class="tool" onclick="toggleStickers()">🧸 新增貼紙</button><span class="hint">點一下加入，點已貼上的貼紙可移除</span></div>
+    <div id="stickerTray" class="tray"><div class="cats" id="stickerCats"></div><div class="stickerGrid" id="stickerGrid"></div></div>
+    <div id="stickerCanvas" class="stickerCanvas"></div>
+    <div class="label">今天值得感謝的小事？</div>
+    <textarea id="gratitude" class="input smallInput" placeholder="試著寫下至少一件值得感謝的事吧 ♡"></textarea>
+    <button class="btn" style="margin-top:16px" onclick="saveEntry()">保存日記</button>
+  </div>
+</section>
+
+<section id="diary" class="hidden">
+  <h2 class="sectionTitle">我的日記</h2>
+  <div class="glass card">
+    <div class="diaryHead"><div><div class="title">最近的心情</div><div class="desc">每一篇都好好替你收著。</div></div><button class="monthBtn" onclick="toggleCalendar()">心情月曆</button></div>
+    <div id="calendarWrap" class="hidden"><h3 id="monthTitle" style="margin-top:18px"></h3><div class="calendar" id="calendar"></div></div>
+  </div>
+  <div class="entries" id="entries"></div>
+
+  <div class="hopeBox oysterHope">
+    <img src="./oyster-babies.png" alt="牡蠣寶寶希望插圖">
+  </div>
+<button class="fab" onclick="go('write')">＋</button>
+</section>
+
+<section id="trend" class="hidden">
+  <h2 class="sectionTitle">心情趨勢</h2>
+  <div class="glass card">
+    <div class="switch"><button class="active" onclick="setRange(7,this)">7 天</button><button onclick="setRange(30,this)">30 天</button><button onclick="setRange(9999,this)">全部</button></div>
+    <div class="title">這段時間的你</div><div class="desc" id="trendText">多記錄幾天，就能慢慢看見自己的心情變化。</div>
+    <div class="chart" id="chart"></div><div class="stat" id="stats"></div>
+  </div>
+  <div class="glass card">
+    <div class="title">給未來的自己</div><div class="desc">把現在想說的話，留給之後的你。</div>
+    <textarea id="future" class="input future" placeholder="寫一段話給未來的自己…"></textarea>
+    <div class="tags"><button class="tag" onclick="saveFuture(7)">7 天後打開</button><button class="tag" onclick="saveFuture(30)">30 天後打開</button></div>
+  </div>
+</section>
+</main>
+
+<nav class="nav">
+<button class="on" data-page="today" onclick="go('today',this)"><b>⌂</b>今天</button>
+<button data-page="write" onclick="go('write',this)"><b>♡</b>記一筆</button>
+<button data-page="trend" onclick="go('trend',this)"><b>▥</b>趨勢</button>
+<button data-page="diary" onclick="go('diary',this)"><b>▤</b>日記</button>
+</nav>
+
+<script>
+const moodData=[['😄','很好',5],['🙂','不錯',4],['😐','普通',3],['😔','有點累',2],['😣','不好',1],['😠','憤怒',0]];
+const tagData=['💼 工作','💗 感情','🏠 家庭','👥 朋友','🧍 自己','🌿 身體','••• 其他','😠 憤怒'];
+const stickerSets={心情:['🥰','🥹','😴','😵‍💫','😭','😤','😠','🤍','💗','✨'],可愛:['🐱','🐻','🐰','🐶','🐣','🦦','🧸','🎀','🍓','🍰'],日常:['☕️','📷','🎧','📚','🛁','🌙','☀️','🌧️','🌿','🌸'],鼓勵:['💪','🫶','🌈','⭐️','🌷','💖','🪽','🍀','🌻','🧡']};
+let selectedMood=4,selectedTags=[],selectedStickers=[],stickerCat='心情',trendRange=7;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function renderMoods(){ $('#moods').innerHTML=moodData.map(m=>`<button class="mood ${m[2]===selectedMood?'active':''}" onclick="pickMood(${m[2]})">${m[0]}<span>${m[1]}</span></button>`).join(''); let m=moodData.find(x=>x[2]===selectedMood); $('#pearl').textContent=m[0];}
+function pickMood(v){selectedMood=v;renderMoods()}
+function renderTags(){ $('#tags').innerHTML=tagData.map(t=>`<button class="tag ${t.includes('憤怒')?'angry':''} ${selectedTags.includes(t)?'active':''}" onclick='toggleTag(${JSON.stringify(t)})'>${t}</button>`).join('')}
+function toggleTag(t){selectedTags=selectedTags.includes(t)?selectedTags.filter(x=>x!==t):[...selectedTags,t];renderTags()}
+function toggleStickers(){$('#stickerTray').classList.toggle('show');renderStickers()}
+function renderStickers(){ $('#stickerCats').innerHTML=Object.keys(stickerSets).map(c=>`<button class="tag ${c===stickerCat?'active':''}" onclick="stickerCat='${c}';renderStickers()">${c}</button>`).join(''); $('#stickerGrid').innerHTML=stickerSets[stickerCat].map(s=>`<button class="sticker" onclick='addSticker(${JSON.stringify(s)})'>${s}</button>`).join(''); renderStickerCanvas()}
+function addSticker(s){selectedStickers.push(s);renderStickerCanvas()} function removeSticker(i){selectedStickers.splice(i,1);renderStickerCanvas()}
+function renderStickerCanvas(){ $('#stickerCanvas').innerHTML=selectedStickers.length?selectedStickers.map((s,i)=>`<span class="placed" onclick="removeSticker(${i})">${s}</span>`).join(''):`<span class="hint">今天想貼什麼心情？</span>`}
+function go(id,btn){['today','write','diary','trend'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==id)); $$('.nav button').forEach(x=>x.classList.toggle('on',x.dataset.page===id)); if(id==='diary')renderDiary();if(id==='trend')renderTrend();scrollTo({top:0,behavior:'smooth'})}
+const KEY='aiweiMoodEntriesV3'; function getEntries(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+function saveEntry(){let e=getEntries();e.unshift({id:Date.now(),date:new Date().toISOString(),mood:selectedMood,note:$('#note').value.trim(),tags:[...selectedTags],gratitude:$('#gratitude').value.trim(),stickers:[...selectedStickers]});localStorage.setItem(KEY,JSON.stringify(e));$('#note').value='';$('#gratitude').value='';selectedTags=[];selectedStickers=[];renderTags();renderStickerCanvas();alert('今天的心情，已經好好收下 ♡');go('diary')}
+function mood(v){return moodData.find(x=>x[2]===v)||moodData[2]}
+function renderDiary(){let e=getEntries();$('#entries').innerHTML=e.length?e.map(x=>{let m=mood(x.mood);return `<div class="glass entry"><div class="entryTop"><div class="entryMood">${m[0]} ${m[1]}</div><div class="entryDate">${new Date(x.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric',weekday:'short'})}</div></div><div class="entryTags">${(x.tags||[]).join('　')}</div><div class="entryText">${escapeHtml(x.note||'今天沒有留下文字。')}</div>${x.gratitude?`<div class="desc">♡ 感謝：${escapeHtml(x.gratitude)}</div>`:''}${(x.stickers||[]).length?`<div style="font-size:30px;margin-top:10px">${x.stickers.join(' ')}</div>`:''}</div>`}).join(''):`<div class="glass empty">還沒有日記。<br>從今天開始，留下一點心情吧 ♡</div>`;renderCalendar()}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toggleCalendar(){$('#calendarWrap').classList.toggle('hidden')}
+function renderCalendar(){let now=new Date(),y=now.getFullYear(),mo=now.getMonth(),first=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate(),e=getEntries();$('#monthTitle').textContent=`${y}年${mo+1}月`;let out=Array(first).fill('<div></div>');for(let d=1;d<=days;d++){let found=e.find(x=>{let z=new Date(x.date);return z.getFullYear()===y&&z.getMonth()===mo&&z.getDate()===d});out.push(`<div class="day ${found?'has':''}">${found?mood(found.mood)[0]:d}</div>`)}$('#calendar').innerHTML=out.join('')}
+function setRange(n,b){trendRange=n;$$('.switch button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderTrend()}
+function renderTrend(){let e=getEntries().slice(0,trendRange).reverse(),shown=e.slice(-12);$('#chart').innerHTML=shown.length?shown.map(x=>`<div class="bar" style="height:${Math.max(12,(x.mood+1)*16)}%"><i>${mood(x.mood)[0]}</i></div>`).join(''):`<div class="empty" style="width:100%">還沒有足夠的紀錄</div>`;if(!e.length){$('#stats').innerHTML='';return}let avg=e.reduce((a,b)=>a+b.mood,0)/e.length,good=e.filter(x=>x.mood>=4).length,angry=e.filter(x=>x.mood===0).length;$('#trendText').textContent=avg>=4?'最近整體心情偏明亮，繼續記下讓你舒服的小事 ♡':avg>=2.5?'生活有高低起伏，而你正在慢慢看懂自己的節奏。':'最近比較辛苦，日記可以先只寫最真實的一句話。';$('#stats').innerHTML=`<div><b>${e.length}</b>篇紀錄</div><div><b>${good}</b>次好心情</div><div><b>${angry}</b>次憤怒</div>`}
+function saveFuture(days){let t=$('#future').value.trim();if(!t)return alert('先寫一句話給未來的自己吧');localStorage.setItem('aiweiFutureLetter',JSON.stringify({text:t,open:Date.now()+days*86400000}));$('#future').value='';alert(`替你收好了，${days} 天後再打開 ♡`)}
+$('#date').textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+renderMoods();renderTags();renderStickers();renderStickerCanvas();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+</script>
+</body></html>
